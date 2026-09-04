@@ -52,9 +52,7 @@ public final class MessageUtil {
 
     public static String get(String path, String... placeholders) {
 
-        String message = ServerAssistantAI.getInstance()
-                .getConfig()
-                .getString(path);
+        String message = ServerAssistantAI.getInstance().getConfig().getString(path);
 
         if (message == null || message.isEmpty()) {
             return "";

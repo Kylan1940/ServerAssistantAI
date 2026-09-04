@@ -82,8 +82,7 @@ public class AIService {
 
     private String loadKnowledge() throws IOException {
 
-        String fileName = plugin.getConfig()
-                .getString("knowledge.file", "server-information.txt");
+        String fileName = plugin.getConfig().getString("knowledge.file", "server-information.txt");
 
         Path file = plugin.getDataFolder().toPath().resolve(fileName);
 
@@ -94,31 +93,21 @@ public class AIService {
         StringBuilder knowledge = new StringBuilder();
 
         for (String line : Files.readAllLines(file, StandardCharsets.UTF_8)) {
-
             // Ignore comment lines
             if (line.trim().startsWith("//")) {
                 continue;
             }
-
-            knowledge.append(line)
-                    .append(System.lineSeparator());
+            knowledge.append(line).append(System.lineSeparator());
         }
-
         return knowledge.toString().trim();
     }
 
     private String sendRequest(String apiKey, String prompt) throws Exception {
 
-        String model = plugin.getConfig()
-                .getString("ai.model", "gemini-3.5-flash-lite");
+        String model = plugin.getConfig().getString("ai.model", "gemini-3.5-flash-lite");
+        int maxResponseLength = plugin.getConfig().getInt("ai.max-response-length", 500);
 
-        int maxResponseLength = plugin.getConfig()
-                .getInt("ai.max-response-length", 500);
-
-        String url = "https://generativelanguage.googleapis.com/v1beta/models/"
-                + model
-                + ":generateContent?key="
-                + apiKey;
+        String url = "https://generativelanguage.googleapis.com/v1beta/models/" + model + ":generateContent?key=" + apiKey;
 
         JsonObject textPart = new JsonObject();
         textPart.addProperty("text", prompt);
@@ -151,33 +140,23 @@ public class AIService {
         );
 
         if (response.statusCode() != 200) {
-            plugin.getLogger().warning(
-                    "Gemini API returned HTTP " + response.statusCode()
-            );
-
+            plugin.getLogger().warning("Gemini API returned HTTP " + response.statusCode());
             throw new IOException("Gemini API request failed.");
         }
-
         return parseResponse(response.body());
     }
 
     private String parseResponse(String responseBody) {
 
-        JsonObject response = JsonParser.parseString(responseBody)
-                .getAsJsonObject();
+        JsonObject response = JsonParser.parseString(responseBody).getAsJsonObject();
 
-        if (!response.has("candidates")
-                || response.getAsJsonArray("candidates").isEmpty()) {
-
+        if (!response.has("candidates") || response.getAsJsonArray("candidates").isEmpty()) {
             if (response.has("promptFeedback")) {
                 throw new IllegalStateException(
                         "AI request was blocked by prompt feedback."
                 );
             }
-
-            throw new IllegalStateException(
-                    "AI returned an empty response."
-            );
+            throw new IllegalStateException("AI returned an empty response.");
         }
 
         JsonObject candidate = response
@@ -186,50 +165,29 @@ public class AIService {
                 .getAsJsonObject();
 
         if (!candidate.has("content")) {
-
             if (candidate.has("finishReason")) {
-                String reason = candidate
-                        .get("finishReason")
-                        .getAsString();
-
-                throw new IllegalStateException(
-                        "AI response finished with reason: " + reason
-                );
+                String reason = candidate.get("finishReason").getAsString();
+                throw new IllegalStateException("AI response finished with reason: " + reason);
             }
-
-            throw new IllegalStateException(
-                    "AI response does not contain content."
-            );
+            throw new IllegalStateException("AI response does not contain content.");
         }
 
-        JsonObject content = candidate
-                .getAsJsonObject("content");
+        JsonObject content = candidate.getAsJsonObject("content");
 
-        if (!content.has("parts")
-                || content.getAsJsonArray("parts").isEmpty()) {
-
-            throw new IllegalStateException(
-                    "AI response does not contain any parts."
-            );
+        if (!content.has("parts") || content.getAsJsonArray("parts").isEmpty()) {
+            throw new IllegalStateException("AI response does not contain any parts.");
         }
 
-        JsonObject part = content
-                .getAsJsonArray("parts")
-                .get(0)
-                .getAsJsonObject();
+        JsonObject part = content.getAsJsonArray("parts").get(0).getAsJsonObject();
 
         if (!part.has("text")) {
-            throw new IllegalStateException(
-                    "AI response does not contain text."
-            );
+            throw new IllegalStateException("AI response does not contain text.");
         }
 
         String text = part.get("text").getAsString().trim();
 
         if (text.isEmpty()) {
-            throw new IllegalStateException(
-                    "AI returned an empty response."
-            );
+            throw new IllegalStateException("AI returned an empty response.");
         }
 
         return text;

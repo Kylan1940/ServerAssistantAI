@@ -39,7 +39,6 @@ public class AssistanceCommand implements CommandExecutor {
             }
 
             plugin.reloadConfig();
-
             MessageUtil.send(sender, "message.reload-success");
             return true;
         }
@@ -55,85 +54,49 @@ public class AssistanceCommand implements CommandExecutor {
         }
 
         String prompt = String.join(" ", args).trim();
-
-        int maxLength = plugin.getConfig()
-                .getInt("assistant.max-prompt-length", 300);
+        int maxLength = plugin.getConfig().getInt("assistant.max-prompt-length", 300);
 
         if (prompt.length() > maxLength) {
-            MessageUtil.send(
-                    player,
-                    "message.prompt-too-long",
-                    "%max%",
-                    String.valueOf(maxLength)
-            );
+            MessageUtil.send(player,"message.prompt-too-long","%max%", String.valueOf(maxLength));
             return true;
         }
 
-        String apiKey = plugin.getConfig()
-                .getString("ai.api-key", "");
+        String apiKey = plugin.getConfig().getString("ai.api-key", "");
 
         if (apiKey.isBlank() || apiKey.equals("YOUR_GEMINI_API_KEY")) {
             MessageUtil.send(player, "message.no-api-key");
             return true;
         }
 
-        long cooldown = plugin.getConfig()
-                .getLong("ai.cooldown", 3);
-
-        long remaining = cooldownManager.getRemaining(
-                player.getUniqueId(),
-                cooldown
-        );
+        long cooldown = plugin.getConfig().getLong("ai.cooldown", 3);
+        long remaining = cooldownManager.getRemaining(player.getUniqueId(),cooldown);
 
         if (remaining > 0) {
-            MessageUtil.send(
-                    player,
-                    "message.cooldown",
-                    "%seconds%",
-                    String.valueOf(remaining)
-            );
+            MessageUtil.send(player,"message.cooldown","%seconds%",String.valueOf(remaining));
             return true;
         }
 
         cooldownManager.start(player.getUniqueId());
-
-        player.sendActionBar(
-                MessageUtil.get("message.thinking")
-        );
+        player.sendActionBar(MessageUtil.get("message.thinking"));
 
         CompletableFuture
                 .supplyAsync(() -> {
                     try {
                         return aiService.ask(prompt);
                     } catch (Exception exception) {
-                        plugin.getLogger().warning(
-                                "Failed to get AI response: "
-                                        + exception.getMessage()
-                        );
-
+                        plugin.getLogger().warning("Failed to get AI response: " + exception.getMessage());
                         return null;
                     }
                 })
                 .thenAccept(response -> {
-
                     plugin.getServer().getScheduler().runTask(
                             plugin,
                             () -> {
-
                                 if (response == null || response.isBlank()) {
-                                    MessageUtil.send(
-                                            player,
-                                            "message.error"
-                                    );
+                                    MessageUtil.send(player,"message.error");
                                     return;
                                 }
-
-                                MessageUtil.send(
-                                        player,
-                                        "message.response",
-                                        "%response%",
-                                        response
-                                );
+                                MessageUtil.send(player,"message.response","%response%", response);
                             }
                     );
                 });
