@@ -42,8 +42,8 @@ If you have a question, find a bug, or want to suggest a feature, please make an
 # Download
 
 | Version | JAR                                                                             | Minecraft Support | Software Support                                              |
-|---------| ------------------------------------------------------------------------------- | ----------------- | ------------------------------------------------------------- |
-| 1.0.0   | [DOWNLOAD](https://github.com/Kylan1940/ServerAssistantAI/releases/tag/DEV-0.1) | Check release     | Paper, Spigot, CraftBukkit, Folia, Purpur, Pufferfish, Leaves |
+|---------| ------------------------------------------------------------------------------- |-------------------| ------------------------------------------------------------- |
+| 1.0.0   | [DOWNLOAD](https://github.com/Kylan1940/ServerAssistantAI/releases/tag/DEV-0.1) | 1.21 - 26.0+      | Paper, Spigot, CraftBukkit, Folia, Purpur, Pufferfish, Leaves |
 
 # Installation
 
@@ -97,9 +97,13 @@ ai:
 
 `api-key` is required for ServerAssistantAI to communicate with Google Gemini.
 
+
 ```yaml
 api-key: "YOUR_GEMINI_API_KEY"
 ```
+
+Follow the instructions to get your API_KEY:
+[How to get API_KEY](https://github.com/Kylan1940/ServerAssistantAI/wiki/How-to-Create-API_KEY)
 
 > **Security:** Never publish your API key in GitHub, screenshots, logs, or other public places.
 
@@ -247,7 +251,7 @@ This allows you to use comments for documentation and organization.
 Example:
 
 ```text
-/assistance gimana cara beli land?
+/assistance how to buy land?
 ```
 
 The question is sent to Google Gemini together with the configured server information.
