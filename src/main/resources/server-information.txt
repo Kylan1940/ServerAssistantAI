@@ -4,6 +4,7 @@
 // Information written here is provided to players through AI responses.
 // You can modify this according to your server's setup. All text below is only a template.
 // Do not write API keys, passwords, or other sensitive information.
+// Lines beginning with // are automatically ignored.
 // ==================================================
 
 

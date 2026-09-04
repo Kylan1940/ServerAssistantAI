@@ -36,6 +36,8 @@ If you have a question, find a bug, or want to suggest a feature, please make an
 > * Cooldown System
 > * Permissions
 > * Asynchronous AI Requests
+> * Support All Languages
+> * Compatible with 7 Server Software (Paper, Spigot, CraftBukkit, Folia, Purpur, Pufferfish, Leaves)
 
 # Download
 
@@ -70,13 +72,6 @@ plugins/ServerAssistantAI/server-information.txt
 | ---------------------- | ------------------------------- | ---------------------------- | ------- |------------------| 
 | `/assistance <prompt>` | Ask the server assistant        | `serverassistant.assistance` | TRUE    | /assist <prompt> |
 | `/assistance reload`   | Reload the plugin configuration | `serverassistant.reload`     | OP      | NONE             |
-
-# Permissions
-
-| Permission                   | Description                                | Default |
-| ---------------------------- | ------------------------------------------ | ------- |
-| `serverassistant.assistance` | Allows players to use the server assistant | TRUE    |
-| `serverassistant.reload`     | Allows players to reload the configuration | OP      |
 
 # Configuration
 
@@ -247,6 +242,29 @@ This allows you to use comments for documentation and organization.
 
 > **Note:** You can modify `server-information.txt` according to your server's setup. All text included in the default file is only a template.
 
+## Asking a Question
+
+Example:
+
+```text
+/assistance gimana cara beli land?
+```
+
+The question is sent to Google Gemini together with the configured server information.
+
+## Support All Languages
+ServerAssistantAI supports all languages supported by the AI model. The assistant automatically responds in the same language used by the player.
+
+Example:
+
+```How do I claim land?``` → English response
+
+```Bagaimana cara claim land?``` → Indonesian response
+
+```Comment puis-je protéger mon terrain ?``` → French response
+
+```Wie kann ich mein Land schützen?``` → German response
+
 ## Updating Server Information
 
 Changes to `server-information.txt` are automatically detected when a new question is processed.
@@ -266,38 +284,6 @@ Use /market to open the shop.
 the next AI request will use the updated information.
 
 You do **not** need to restart the server for changes to `server-information.txt`.
-
-For example, if the server information contains:
-
-```text
-LAND
-
-Use /land buy to purchase land.
-```
-
-and a player asks:
-
-```text
-/assistance gimana cara beli land?
-```
-
-the AI can answer:
-
-```text
-Gunakan /land buy untuk membeli land.
-```
-
-If the server information does not contain information about a requested feature, the AI should not invent an answer.
-
-## Asking a Question
-
-Example:
-
-```text
-/assistance gimana cara beli land?
-```
-
-The question is sent to Google Gemini together with the configured server information.
 
 ## Reload
 
