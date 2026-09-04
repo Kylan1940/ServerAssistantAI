@@ -41,13 +41,13 @@ If you have a question, find a bug, or want to suggest a feature, please make an
 
 # Download
 
-| Version | JAR                                                                             | Minecraft Support | Software Support                                              |
-|---------| ------------------------------------------------------------------------------- |-------------------| ------------------------------------------------------------- |
-| 1.0.0   | [DOWNLOAD](https://github.com/Kylan1940/ServerAssistantAI/releases/tag/DEV-0.1) | 1.21 - 26.0+      | Paper, Spigot, CraftBukkit, Folia, Purpur, Pufferfish, Leaves |
+| Version | JAR                                                                           | Minecraft Support | Software Support                                              |
+|---------|-------------------------------------------------------------------------------|-------------------| ------------------------------------------------------------- |
+| 1.0.0   | [DOWNLOAD](https://github.com/Kylan1940/ServerAssistantAI/releases/tag/1.0.0) | 1.21 - 26.0+      | Paper, Spigot, CraftBukkit, Folia, Purpur, Pufferfish, Leaves |
 
 # Installation
 
-1. Download the latest [plugin](https://github.com/Kylan1940/ServerAssistantAI/releases).
+1. Download the latest [plugin](https://github.com/Kylan1940/ServerAssistantAI/releases/tag/1.0.0).
 2. Put the `.jar` file into the server's `plugins` folder.
 3. Start or restart the server.
 4. Open:
