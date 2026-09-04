@@ -1,0 +1,22 @@
+name: ServerAssistantAI
+version: '1.0.0'
+main: org.kylan1940.serverassistantai.ServerAssistantAI
+api-version: '1.21'
+author: Kylan1940
+description: An AI-powered assistant that helps players understand and navigate the server.
+
+commands:
+  assistance:
+    description: Ask the server assistant for help.
+    usage: /assistance <prompt>
+    aliases:
+      - assist
+    permission: serverassistant.assistance
+
+permissions:
+  serverassistant.assistance:
+    description: Allows players to use the server assistant.
+    default: true
+  serverassistant.reload:
+    description: Allows reloading ServerAssistantAI configuration.
+    default: op

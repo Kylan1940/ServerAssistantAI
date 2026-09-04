@@ -1,0 +1,153 @@
+// ==================================================
+// SERVER INFORMATION
+// This file contains information used by ServerAssistantAI.
+// Information written here is provided to players through AI responses.
+// You can modify this according to your server's setup. All text below is only a template.
+// Do not write API keys, passwords, or other sensitive information.
+// ==================================================
+
+
+=============================
+SERVER
+=============================
+Name: Example Server
+Type: Survival Economy
+Version: 1.21.x
+Description: A survival server with an economy, land protection, and player shops.
+
+=============================
+SERVER ADDRESS
+=============================
+Java: play.example.com
+Bedrock: play.example.com:19132
+
+=============================
+GAMEPLAY
+=============================
+The server uses Survival mode.
+PvP is enabled in designated areas only.
+Keep Inventory is enabled.
+Mob Griefing is disabled.
+
+=============================
+COMMANDS
+=============================
+General:
+/spawn - Teleport to the server spawn.
+/rtp - Teleport to a random location.
+/help - Show available commands.
+
+Economy:
+/shop - Open the server shop.
+/sell - Sell items.
+/balance - Check your balance.
+/pay <player> <amount> - Send money to another player.
+
+Land:
+/land buy - Buy the land you are standing in.
+/land claim - Claim land.
+/land trust <player> - Allow another player to build in your land.
+/land untrust <player> - Remove a trusted player.
+
+=============================
+LAND
+=============================
+Players can protect their builds using the land protection system.
+
+To buy a land, stand inside the desired area and use:
+/land buy
+
+Only the land owner and trusted players can build inside protected land.
+
+=============================
+ECONOMY
+=============================
+The server uses Coins as its main currency.
+
+Players can earn money by selling items, completing activities, and trading with other players.
+
+The server shop can be opened using:
+/shop
+
+=============================
+RANKS
+=============================
+There are several ranks available on the server.
+
+Player:
+Default rank for all players.
+
+VIP:
+Additional perks and commands.
+
+MVP:
+Additional perks, commands, and cosmetic features.
+
+Admin:
+Server administration rank.
+
+Owner:
+Server owner.
+
+=============================
+STAFF
+=============================
+Owner:
+ExampleOwner
+
+Admin:
+ExampleAdmin
+
+Moderator:
+ExampleModerator
+
+=============================
+EVENTS
+=============================
+The server occasionally hosts events for players.
+
+Events may include:
+- Building competitions
+- PvP tournaments
+- Treasure hunts
+- Seasonal events
+
+Event announcements are posted in the server's official communication channels.
+
+=============================
+RULES
+=============================
+1. Do not use cheats, hacks, or unauthorized modifications.
+2. Do not intentionally exploit server bugs.
+3. Do not spam or flood the chat.
+4. Do not harass or threaten other players.
+5. Do not advertise other servers without permission.
+6. Respect the server staff and other players.
+7. Follow the instructions given by server staff.
+
+=============================
+SUPPORT
+=============================
+If you encounter a problem or need help, contact a member of the server staff.
+
+For technical problems, provide:
+- Your Minecraft username
+- A description of the problem
+- Relevant screenshots or error messages
+
+Do not share your password or other private account information.
+
+=============================
+FAQ
+=============================
+Q: How do I open the shop?
+A: Use /shop.
+
+Q: How do I protect my land?
+A: Use the land protection commands described in the LAND section.
+
+Q: How do I contact staff?
+A: Contact one of the staff members listed in the STAFF section.
+
+Q: How do I earn money?
+A: You can earn money by selling items, completing activities, and trading with other players.

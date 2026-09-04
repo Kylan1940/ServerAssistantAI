@@ -1,0 +1,66 @@
+# ===========================================================================
+#   _____                                         _     _              _            _____
+# / ____|                           /\           (_)   | |            | |     /\   |_   _|
+# | (___   ___ _ ____   _____ _ __ /  \   ___ ___ _ ___| |_ __ _ _ __ | |_   /  \    | |
+# \___ \ / _ \ '__\ \ / / _ \ '__ / /\ \ / __/ __| / __| __/ _` | '_ \| __| / /\ \   | |
+#  ____) |  __/ |   \ V /  __/ | / ____ \\__ \__ \ \__ \ || (_| | | | | |_ / ____ \ _| |_
+# |_____/ \___|_|    \_/ \___|_|/_/    \_\___/___/_|___/\__\__,_|_| |_|\__/_/    \_\_____|
+# ===========================================================================
+# Report Plugin: https://github.com/Kylan1940/ServerAssistantAI/issues/new
+# ===========================================================================
+# Github: https://github.com/Kylan1940
+# Website: https://kylan1940.netlify.app
+# ===========================================================================
+
+# ServerAssistantAI CONFIGURATION
+#
+# HELP:
+# & for color and special symbols
+# %name% for the name of AI
+# %prefix% for the configured message prefix
+# %response% for the AI response
+# %seconds% for the remaining cooldown in seconds
+# %status% for the current AI status
+# %mode% for the current AI mode
+
+# Config Version
+# DON'T CHANGE THIS!!!
+config-version: 1
+
+# Prefix
+prefix: "&b%name% &7» "
+
+# AI Name
+name: "ServerAssistantAI"
+
+# AI Model
+ai:
+  # DON'T CHANGE MODEL IF YOU DON'T KNOW WHAT YOU DO
+  model: "gemini-3.5-flash-lite"
+  # Follow the instructions to get your API_KEY:
+  # https://github.com/Kylan1940/ServerAssistantAI/wiki/How-to-Create-API_KEY
+  api-key: "YOUR_GEMINI_API_KEY"
+  # Maximum AI response length
+  max-response-length: 500=
+  # Cooldown between AI requests
+  cooldown: 3
+
+assistant:
+  # Maximum player's prompt
+  max-prompt-length: 300
+
+message:
+  player-only: "%prefix%&cThis command can only be used by players."
+  usage: "%prefix%&cUsage: /assistance <prompt>"
+  thinking: "%prefix%&7Thinking..."
+  no-api-key: "%prefix%&cAPI key has not been configured."
+  cooldown: "%prefix%&cPlease wait &e%seconds% seconds&c."
+  prompt-too-long: "%prefix%&cYour prompt is too long. Maximum: &e%max% &ccharacters."
+  error: "%prefix%&cAI Failed to get a response from AI."
+  response: "%prefix%&f%response%"
+  reload-success: "%prefix%&aConfiguration reloaded successfully."
+  reload-no-permission: "%prefix%&cYou don't have permission to reload the plugin."
+
+# Server Information
+knowledge:
+  file: server-information.txt
