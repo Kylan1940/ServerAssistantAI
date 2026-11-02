@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.kylan1940.serverassistantai.ai.AIService;
 import org.kylan1940.serverassistantai.ai.CooldownManager;
+import org.kylan1940.serverassistantai.ai.provider.AIProvider;
 import org.kylan1940.serverassistantai.message.MessageUtil;
 
 import java.util.concurrent.CompletableFuture;
@@ -61,10 +62,17 @@ public class AssistanceCommand implements CommandExecutor {
             return true;
         }
 
-        String apiKey = plugin.getConfig().getString("ai.api-key", "");
+        AIProvider provider = aiService.createProvider();
 
-        if (apiKey.isBlank() || apiKey.equals("YOUR_GEMINI_API_KEY")) {
-            MessageUtil.send(player, "message.no-api-key");
+        if (provider == null) {
+            plugin.getLogger().warning("Unknown ai.provider \"" + plugin.getConfig().getString("ai.provider")
+                    + "\". Use gemini, claude or openai.");
+            MessageUtil.send(player, "message.invalid-provider");
+            return true;
+        }
+
+        if (!provider.isConfigured()) {
+            MessageUtil.send(player, "message.no-api-key", "%provider%", provider.getName());
             return true;
         }
 
@@ -82,7 +90,7 @@ public class AssistanceCommand implements CommandExecutor {
         CompletableFuture
                 .supplyAsync(() -> {
                     try {
-                        return aiService.ask(prompt);
+                        return aiService.ask(provider, prompt);
                     } catch (Exception exception) {
                         plugin.getLogger().warning("Failed to get AI response: " + exception.getMessage());
                         return null;

@@ -1,5 +1,5 @@
 name: ServerAssistantAI
-version: '1.0.0'
+version: '1.1.0'
 main: org.kylan1940.serverassistantai.ServerAssistantAI
 api-version: '1.21'
 author: Kylan1940

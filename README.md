@@ -28,7 +28,7 @@ If you have a question, find a bug, or want to suggest a feature, please make an
 
 # Features
 
-> * Google Gemini AI Integration
+> * Multiple AI Providers: Google Gemini, Anthropic Claude, OpenAI (and OpenAI-compatible services)
 > * Server-Specific AI Assistant
 > * Custom Server Information
 > * Automatically Reads Updated Server Information
@@ -43,11 +43,12 @@ If you have a question, find a bug, or want to suggest a feature, please make an
 
 | Version | JAR                                                                           | Minecraft Support | Software Support                                              |
 |---------|-------------------------------------------------------------------------------|-------------------| ------------------------------------------------------------- |
+| 1.1.0   | [DOWNLOAD](https://github.com/Kylan1940/ServerAssistantAI/releases/tag/1.1.0) | 1.21 - 26.0+      | Paper, Spigot, CraftBukkit, Folia, Purpur, Pufferfish, Leaves |
 | 1.0.0   | [DOWNLOAD](https://github.com/Kylan1940/ServerAssistantAI/releases/tag/1.0.0) | 1.21 - 26.0+      | Paper, Spigot, CraftBukkit, Folia, Purpur, Pufferfish, Leaves |
 
 # Installation
 
-1. Download the latest [plugin](https://github.com/Kylan1940/ServerAssistantAI/releases/tag/1.0.0).
+1. Download the latest [plugin](https://github.com/Kylan1940/ServerAssistantAI/releases/tag/1.1.0).
 2. Put the `.jar` file into the server's `plugins` folder.
 3. Start or restart the server.
 4. Open:
@@ -56,7 +57,7 @@ If you have a question, find a bug, or want to suggest a feature, please make an
 plugins/ServerAssistantAI/config.yml
 ```
 
-5. Configure your Gemini API key.
+5. Choose your AI provider (`ai.provider`) and configure its API key.
 6. Open:
 
 ```text
@@ -87,35 +88,61 @@ Example:
 
 ```yaml
 ai:
-  model: "gemini-3.5-flash-lite"
-  api-key: "YOUR_GEMINI_API_KEY"
+  provider: "gemini"        # gemini, claude or openai
   max-response-length: 500
   cooldown: 3
+
+  gemini:
+    model: "gemini-3.5-flash-lite"
+    api-key: "YOUR_GEMINI_API_KEY"
+
+  claude:
+    model: "claude-haiku-5-5"
+    api-key: "YOUR_CLAUDE_API_KEY"
+
+  openai:
+    model: "gpt-5-mini"
+    api-key: "YOUR_OPENAI_API_KEY"
+    base-url: "https://api.openai.com/v1"
 ```
+
+### Provider
+
+`provider` selects which AI answers the players. Only the section of the selected provider is used, so you can keep several API keys in the file and switch with `/assistance reload`.
+
+| Provider | Value | Get an API key |
+| -------- | ----- | -------------- |
+| Google Gemini | `gemini` | [How to get API_KEY](https://github.com/Kylan1940/ServerAssistantAI/wiki/How-to-Create-API_KEY) |
+| Anthropic Claude | `claude` | [Anthropic Console](https://console.anthropic.com) |
+| OpenAI | `openai` | [OpenAI Platform](https://platform.openai.com) |
 
 ### API Key
 
-`api-key` is required for ServerAssistantAI to communicate with Google Gemini.
-
+Each provider has its own `api-key`. It is required for ServerAssistantAI to communicate with the selected provider.
 
 ```yaml
-api-key: "YOUR_GEMINI_API_KEY"
+claude:
+  api-key: "YOUR_CLAUDE_API_KEY"
 ```
-
-Follow the instructions to get your API_KEY:
-[How to get API_KEY](https://github.com/Kylan1940/ServerAssistantAI/wiki/How-to-Create-API_KEY)
 
 > **Security:** Never publish your API key in GitHub, screenshots, logs, or other public places.
 
 ### Model
 
-Configure the Gemini model used by ServerAssistantAI:
+Each provider has its own `model`:
 
 ```yaml
-model: "gemini-3.5-flash-lite"
+gemini:
+  model: "gemini-3.5-flash-lite"
 ```
 
-Make sure the configured model is supported by the Gemini API.
+Make sure the configured model is supported by the selected provider.
+
+> **Note:** Reasoning models count their internal "thinking" tokens toward `max-response-length`. If answers come back empty or cut off, increase `max-response-length` or choose a non-reasoning / lighter model.
+
+### OpenAI-compatible services
+
+`openai.base-url` can point to any service that implements the OpenAI Chat Completions API (for example OpenRouter, Groq, or a local server). Set `provider: "openai"`, put that service's API key in `openai.api-key`, its model name in `openai.model`, and its URL in `openai.base-url`.
 
 ### Maximum Response Length
 
@@ -254,7 +281,7 @@ Example:
 /assistance how to buy land?
 ```
 
-The question is sent to Google Gemini together with the configured server information.
+The question is sent to the configured AI provider together with the configured server information.
 
 ## Support All Languages
 ServerAssistantAI supports all languages supported by the AI model. The assistant automatically responds in the same language used by the player.
@@ -340,6 +367,7 @@ prefix: "&bServerAssistantAI &7» "
 | `%response%` | AI response               |
 | `%seconds%`  | Remaining cooldown        |
 | `%max%`      | Maximum prompt length     |
+| `%provider%` | Selected AI provider      |
 
 # AI Safety
 

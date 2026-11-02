@@ -20,12 +20,13 @@
 # %prefix% for the configured message prefix
 # %response% for the AI response
 # %seconds% for the remaining cooldown in seconds
+# %provider% for the name of the selected AI provider
 # %status% for the current AI status
 # %mode% for the current AI mode
 
 # Config Version
 # DON'T CHANGE THIS!!!
-config-version: 1
+config-version: 2
 
 # Prefix
 prefix: "&b%name% &7» "
@@ -33,17 +34,34 @@ prefix: "&b%name% &7» "
 # AI Name
 name: "ServerAssistantAI"
 
-# AI Model
+# AI Configuration
 ai:
-  # DON'T CHANGE MODEL IF YOU DON'T KNOW WHAT YOU DO
-  model: "gemini-3.5-flash-lite"
-  # Follow the instructions to get your API_KEY:
-  # https://github.com/Kylan1940/ServerAssistantAI/wiki/How-to-Create-API_KEY
-  api-key: "YOUR_GEMINI_API_KEY"
-  # Maximum AI response length
-  max-response-length: 500=
-  # Cooldown between AI requests
+  # Which AI to use: gemini, claude or openai
+  provider: "gemini" # default "gemini"
+  # Maximum AI response length (output tokens)
+  max-response-length: 500
+  # Cooldown between AI requests in seconds
   cooldown: 3
+
+  # Only the section of the provider you selected above is used.
+  # DON'T CHANGE MODEL IF YOU DON'T KNOW WHAT YOU DO
+  gemini:
+    model: "gemini-3.5-flash-lite" # default "gemini-3.5-flash-lite"
+    # Follow the instructions to get your API_KEY:
+    # https://github.com/Kylan1940/ServerAssistantAI/wiki/How-to-Create-API_KEY
+    api-key: "YOUR_GEMINI_API_KEY"
+
+  claude:
+    model: "claude-haiku-5-5" # default "claude-haiku-5-5"
+    # Get your API key at https://console.anthropic.com
+    api-key: "YOUR_CLAUDE_API_KEY"
+
+  openai:
+    model: "gpt-5-mini" # default "gpt-5-mini"
+    # Get your API key at https://platform.openai.com
+    api-key: "YOUR_OPENAI_API_KEY"
+    # Change this to use an OpenAI-compatible service (OpenRouter, Groq, local server, ...)
+    base-url: "https://api.openai.com/v1"
 
 assistant:
   # Maximum player's prompt
@@ -53,7 +71,8 @@ message:
   player-only: "%prefix%&cThis command can only be used by players."
   usage: "%prefix%&cUsage: /assistance <prompt>"
   thinking: "%prefix%&7Thinking..."
-  no-api-key: "%prefix%&cAPI key has not been configured."
+  no-api-key: "%prefix%&cAPI key for %provider% has not been configured."
+  invalid-provider: "%prefix%&cInvalid AI provider in config.yml. Use gemini, claude or openai."
   cooldown: "%prefix%&cPlease wait &e%seconds% seconds&c."
   prompt-too-long: "%prefix%&cYour prompt is too long. Maximum: &e%max% &ccharacters."
   error: "%prefix%&cAI Failed to get a response from AI."
