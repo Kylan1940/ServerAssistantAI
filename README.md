@@ -26,6 +26,9 @@ server-information.txt
 
 If you have a question, find a bug, or want to suggest a feature, please make an [issue](https://github.com/Kylan1940/ServerAssistantAI/issues/new).
 
+# Changelogs [1.1.0]
+>- Added Claude and OpenAI provider
+
 # Features
 
 > * Multiple AI Providers: Google Gemini, Anthropic Claude, OpenAI (and OpenAI-compatible services)
